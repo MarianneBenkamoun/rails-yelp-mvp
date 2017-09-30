@@ -1,0 +1,20 @@
+<h1>Restaurants </h1>
+
+<%= link_to "ajoutez un nouveau resto", new_restaurant_path, class: "btn btn-success" %>
+<% @restaurants.each do |restaurant| %>
+  <h2><%= restaurant.name %></h2>
+  <p> adresse : <%= restaurant.address %></p>
+  <p> telephone : <%= restaurant.phone_number %></p>
+  <p> categorie : <%= restaurant.category %></p>
+  <% arr = [] %>
+<% restaurant.reviews.each do |review| %>
+  <% arr << review.rating %>
+  <% end %>
+  <% average = arr.inject{ |sum, el| sum + el }.to_f / arr.size %>
+  <h4> note : <%= average %> / 5</h4>
+  <%= link_to"allezvoir", restaurant_path(restaurant), class: "btn btn-success" %>
+  <%= link_to"modifiez ce resto", edit_restaurant_path(restaurant), class: "btn btn-primary" %>
+  <%= link_to"Delete", restaurant_path(restaurant), class: "btn-danger",
+  method: :delete,
+  data: { confirm: "Are you sure?" }  %>
+<% end %>
